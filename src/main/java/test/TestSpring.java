@@ -1,10 +1,10 @@
 package test;
 
-
+import domain.Account;
+import service.AccountService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import service.AccountService;
 
 public class TestSpring {
     @Test
