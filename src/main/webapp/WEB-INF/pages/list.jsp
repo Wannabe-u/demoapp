@@ -13,6 +13,9 @@
     <title>Title</title>
 </head>
 <body>
-<h2>查询所有的账户</h2>
+    <h2>查询所有的账户</h2>
+    <c:forEach items="${list}" var="account">
+       ${account.user}  ${account.passwd}
+    </c:forEach>
 </body>
 </html>

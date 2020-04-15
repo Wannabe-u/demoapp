@@ -15,10 +15,11 @@ public class AccountController {
     private AccountService accountService;
 
     @RequestMapping("/account/findAll")
-    public String findAll(){
+    public String findAll(Model model){
         System.out.println("Controller表现层：查询所有账户...");
 
-        List<Account> List=accountService.findAll();
+        List<Account> list=accountService.findAll();
+        model.addAttribute("list",list);
         return "list";  //在视图解析器中配置了前缀后缀
     }
 }
