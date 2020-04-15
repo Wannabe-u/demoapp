@@ -21,12 +21,13 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext.xml")
 public class TestMybatis {
-    private static SqlSessionFactory sqlSessionFactory;
+    @Resource(name="sqlSessionFactory")
+    private  SqlSessionFactory sqlSessionFactory;
 
     @Test
     public void run1() throws IOException {
-        BaseSessionFactoryImpl ac = new 
-        Account account =new Account();
+        SqlSession ac = sqlSessionFactory.openSession();
+        Account account = new Account();
         account.setUser("Test2");
         account.setPasswd("testtest2");
         IAccountdao dao = ac.getMapper(IAccountdao.class);
