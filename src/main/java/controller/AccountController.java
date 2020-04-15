@@ -11,10 +11,14 @@ import java.util.List;
 
 @Controller
 public class AccountController {
+    @Autowired
+    private AccountService accountService;
 
     @RequestMapping("/account/findAll")
     public String findAll(){
         System.out.println("Controller表现层：查询所有账户...");
+
+        List<Account> List=accountService.findAll();
         return "list";  //在视图解析器中配置了前缀后缀
     }
 }
