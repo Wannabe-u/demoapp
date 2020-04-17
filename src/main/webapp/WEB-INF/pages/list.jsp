@@ -13,9 +13,9 @@
     <title>Title</title>
 </head>
 <body>
-    <h2>查询所有的账户</h2>
+    <h1>查询所有的账户</h1>
     <c:forEach items="${list}" var="account">
-       ${account.user}  ${account.passwd}
+       ${account.user} ${account.passwd}<br>
     </c:forEach>
 </body>
 </html>
