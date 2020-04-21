@@ -1,6 +1,9 @@
 package controller;
 
 import domain.Account;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,22 +12,50 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 @Controller
+@RequestMapping("api/account")
 public class AccountController {
     @Autowired
     private AccountService accountService;
 
-    @RequestMapping("/account/findAll")
-    public String findAll(Model model){
+    @RequestMapping(value = "user",method = RequestMethod.GET)
+    @ResponseBody
+    public Map userInfo(HttpSession httpSession){
         System.out.println("Controller表现层：查询所有账户...");
-
+        Map<String,Object> map = new HashMap<String,Object>();
         List<Account> list=accountService.findAll();
-        model.addAttribute("list",list);
-        return "list";  //在视图解析器中配置了前缀后缀
+        for (int i=0;i<list.size();i++) {
+            try {
+                map.put("message", list.get(i));
+                map.put("errorCode", 200);
+            } catch (Exception e) {
+                map.put("errorCode", 1);
+                map.put("errorMessage", "未知错误");
+            }
+        }
+        System.out.println(map);
+        return map;
     }
+
+
+        @RequestMapping(value = "hello", method = RequestMethod.GET)
+        @ResponseBody // 要返回json数据
+        public Map login(HttpSession httpSession) {
+            Map<String, Object> map = new HashMap<String, Object>();
+
+            try {
+                map.put("errorCode", 0);
+                map.put("message", "hello");
+            } catch (Exception e) {
+                map.put("errorCode", 1);
+                map.put("errorMessage", "未知错误");
+            }
+            return map;
+        }
 
     @RequestMapping("/account/save")
     public void save(Account account, HttpServletRequest request, HttpServletResponse response) throws IOException {
