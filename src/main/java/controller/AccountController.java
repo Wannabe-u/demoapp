@@ -26,21 +26,35 @@ public class AccountController {
     @ResponseBody
     public Map userInfo(HttpSession httpSession){
         System.out.println("Controller表现层：查询所有账户...");
-        Map<String,Object> map = new HashMap<String,Object>();
+        Map<Object,Object> map = new HashMap<Object, Object>();
         List<Account> list=accountService.findAll();
-        for (int i=0;i<list.size();i++) {
+        //for (int i=0;i<list.size();i++) {
             try {
-                map.put("message", list.get(i));
+                map.put("message", list);
                 map.put("errorCode", 200);
             } catch (Exception e) {
                 map.put("errorCode", 1);
                 map.put("errorMessage", "未知错误");
             }
+        //}
+        for (int i=0;i<list.size();i++) {
+            System.out.println(list.get(i));
         }
         System.out.println(map);
         return map;
     }
 
+    @RequestMapping(value = "user1",method = RequestMethod.GET)
+    @ResponseBody
+    public List userInfo1(HttpSession httpSession){
+        System.out.println("Controller表现层：查询所有账户...");
+        List<Account> list=accountService.findAll();
+        for (int i=0;i<list.size();i++) {
+            System.out.println(list.get(i));
+        }
+        System.out.println(list);
+        return list;
+    }
 
         @RequestMapping(value = "hello", method = RequestMethod.GET)
         @ResponseBody // 要返回json数据
